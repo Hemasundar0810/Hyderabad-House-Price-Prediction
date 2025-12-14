@@ -1,9 +1,11 @@
 import pandas as pd
 import pickle as pk
 import streamlit as st
+import joblib
 
 data = pd.read_csv("cleaned_hyd_housing_data_final1.csv")
-model = pk.load(open("hyd_house_pred_model.pkl", 'rb'))
+#model = pk.load(open("hyd_house_pred_model.pkl", 'rb'))
+model = joblib.load("hyd_house_pred_model.pkl")
 
 st.set_page_config(page_title="Price Predictor", layout="centered",page_icon="🏠")
 st.header("🏠Hyderabad House Price Predictor")
@@ -27,3 +29,4 @@ with right:
     if st.button("Predict House Price",width="content"):
         output = model.predict(input_df)
         st.success(f"Predicted house price is: ₹{output[0]:,.2f}",width="stretch")
+
